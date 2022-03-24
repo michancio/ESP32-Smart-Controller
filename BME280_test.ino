@@ -1,12 +1,8 @@
 /*
-  Rui Santos
+  Michal Lesiowski
   Complete project details at https://RandomNerdTutorials.com/esp32-i2c-communication-arduino-ide/
   
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+
 */
 
 #include <Wire.h>
@@ -16,7 +12,7 @@
 #define I2C_SDA 5
 #define I2C_SCL 4
 
-//SEA Level in LDZ - 218m
+//SEA Level in PL - 218m
 //Calculated by https://keisan.casio.com/exec/system/1224575267 , finally presussure data from windy.com
 #define SEALEVELPRESSURE_HPA (1029)
 
