@@ -1,7 +1,10 @@
 # ESP32-Smart-Controller
 
-Repo with code for electronic project. 
+Repository with code for electronic project. 
 I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is also relay module to switch pump on designated alarm.
+
+
+# Information
 
 
 
@@ -9,4 +12,4 @@ I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is als
 # Note
 
 
-- Please remeber to use the latest NTP Client library created by Taranais [https://github.com/taranais]. This library is forked from official NTP Library and provide much more methods then original.
+- Please remeber to use the latest NTP Client library created by Taranais [https://github.com/taranais](https://github.com/taranais). This library is forked from official NTP Library and provide much more methods then original.
