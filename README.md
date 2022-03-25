@@ -10,7 +10,8 @@ I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is als
 - 
 
 # Scheme
-
+- ESP32 Wemos with OLED pinout
+- ![ESP Wemos pinout](assets/ESP32_WEMOS_Oled_Pinout.jpeg) 
 
 
 # Note
