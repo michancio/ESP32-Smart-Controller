@@ -9,6 +9,8 @@ I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is als
 - You should connect ESP32 with devices like presented on schema.
 - 
 
+# Scheme
+
 
 
 # Note
