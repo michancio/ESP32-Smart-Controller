@@ -5,7 +5,9 @@ I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is als
 
 
 # Information
-
+- There is a config file data_ in which you should paste your credentials and data.
+- You should connect ESP32 with devices like presented on schema.
+- 
 
 
 
