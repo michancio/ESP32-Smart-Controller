@@ -3,7 +3,7 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "arduino_secrets.h"
+#include "data_secrets.h"
 
 #include <NTPClient.h>
 #include <WiFiUdp.h>
