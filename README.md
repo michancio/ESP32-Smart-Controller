@@ -17,4 +17,4 @@ I've used ESP32 WEMOS microcontroller with OLED and sensor BME 280. There is als
 # Note
 
 
-- Please remeber to use the latest NTP Client library created by Taranais [https://github.com/taranais](https://github.com/taranais). This library is provide much more methods then original (ie. getFormattedDate()).
+- Please remeber to use the latest NTP Client library created by Taranais [https://github.com/taranais/NTPClient](https://github.com/taranais/NTPClient). This library provide additional methods then original (ie. getFormattedDate()). For example to retrive data you can use formattedDate = timeClient.getFormattedDate();
