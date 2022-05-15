@@ -3,7 +3,7 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "data_secrets.h"
+#include "arduino_secrets.h"
 
 #include <NTPClient.h>
 #include <WiFiUdp.h>
@@ -29,11 +29,17 @@ String timeStamp;
 String currentSec;
 int countUp = 0;
 
+int COUNTER;
+int flag = 0;
+
+//Board = ESP32 Wemos Lolin
+
+unsigned long prevRelayTime = 0;
+unsigned long delayRelay = 1200000; //20 minutes
+
 //Alarms
-#define ALARM1_ON "02:10:00"
-#define ALARM1_OFF "02:30:00"
-#define ALARM2_ON  "03:30:00"
-#define ALARM2_OFF "03:55:00"
+#define ALARM1_ON "02:01:00"
+#define ALARM2_ON  "04:14:00"
 
 //BME280 I2C data
 #define I2C_SDA 5
@@ -115,12 +121,14 @@ void setup()
     while (1);
   }
 
-  delay(2000);
+  delay(700);
 
   }
 
 void loop()
 {
+  unsigned long timeNow = millis();
+  
   thing.handle();
 
   timeClient.update();
@@ -128,26 +136,37 @@ void loop()
   formattedDate = timeClient.getFormattedDate();
 
   //Print Data
-  printData();
-  printBMEValues();
+  //printData();
+  //printBMEValues();
+  printLCD();
+
+
+  //Alarm at night
+  if (formattedTime == ALARM1_ON || formattedTime == ALARM2_ON) {     
+      prevRelayTime = timeNow;      
+       Serial.println("-- Start NOW ----");
+       digitalWrite(relay, HIGH); 
+       flag = 1;      
+  }
+
+  if (timeNow > prevRelayTime + delayRelay && flag == 1) {
+         Serial.println("--> End time <--"); 
+         digitalWrite(relay, LOW);        
+         flag = 0;
+       }
+
+
+  delay(100);
+
+}
+
+void printLCD() {
 
   display.clearDisplay();
   display.setTextSize(2);
   display.setCursor(0, 0);
   display.println(formattedTime);
-
-  //Every minute switch Relay
-  // if (currentSec == "00") {
-  //    if (digitalRead(relay) == 0) {
-  //        digitalWrite(relay, HIGH);
-  //    } else {
-  //      digitalWrite(relay, LOW);
-  //    }
-  //    countUp++;
-  //}
-  //display.println(countUp);
   display.setTextSize(1);
-
   display.println();
   display.print("Temp:  ");
   display.print(bme.readTemperature());
@@ -160,21 +179,12 @@ void loop()
   display.println();
   display.print("Altitiude:  ");
   display.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  display.println();
+  display.print("Relay:  ");
+  display.print(digitalRead(relay));
   display.display();   // write the buffer to the display
+
   
-
-  //Alarm at night
-  if (formattedTime == ALARM1_ON || formattedTime == ALARM2_ON) {
-    digitalWrite(relay, HIGH);
-  }
-
-
-  if (formattedTime == ALARM1_OFF || formattedTime == ALARM2_OFF) {
-    digitalWrite(relay, LOW);
-  }
-
-  delay(1000);
-
 }
 
 void printData() {
@@ -197,12 +207,7 @@ void printBMEValues() {
   Serial.print("Temperature = ");
   Serial.print(bme.readTemperature());
   Serial.println(" *C");
-  
-  // Convert temperature to Fahrenheit
-  /*Serial.print("Temperature = ");
-  Serial.print(1.8 * bme.readTemperature() + 32);
-  Serial.println(" *F");*/
-  
+    
   Serial.print("Pressure = ");
   Serial.print(bme.readPressure() / 100.0F);
   Serial.println(" hPa");
